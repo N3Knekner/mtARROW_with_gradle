@@ -1,0 +1,28 @@
+.menuBnt{
+    -fx-background-radius : 0;
+    -fx-background-color : white;
+    -fx-border-color : transparent;
+    -fx-font-size : 1.2em;
+    -fx-font-family : "System";
+    -fx-font-weight : bold;
+    -fx-font-style : italic;
+}
+.menuBnt .text{
+    /* acessa diretamente o texto*/
+}
+.menuBnt:hover{
+    -fx-background-color : #CCC;
+}
+
+#startMenu{
+    -fx-background-color : rgba(255, 0, 0, 0.2);
+}
+#constructMenu{
+    -fx-background-color : rgba(255, 255, 0, 0.2);
+}
+#consoleMenu{
+    -fx-background-color : rgba(0, 255, 0, 0.2);
+}
+#configMenu{
+    -fx-background-color : rgba(0, 0, 255, 0.2);
+}

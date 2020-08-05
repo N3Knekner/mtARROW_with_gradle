@@ -1,0 +1,25 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.8'
+}
+
+javafx {
+    version = "14"
+    modules = [ 'javafx.controls' ]
+}
+
+group 'org.screenplay'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+mainClassName = 'org.screenplay.Main'
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}

@@ -22,4 +22,5 @@ mainClassName = 'org.screenplay.Main'
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile group: 'com.fazecast', name: 'jSerialComm', version: '2.6.2'
 }

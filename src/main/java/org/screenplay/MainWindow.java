@@ -20,7 +20,7 @@ public class MainWindow {
     private float windowX, windowY;
 
     public void load() {
-        List<String> tabs = Arrays.asList("INICIAR", "CONSTRUIR", "CONSOLE", "CONFIGURAÇÕES");
+        List<String> tabs = Arrays.asList("INICIAR", "CONSTRUIR", "CONSOLE", "CONFIGURA\u00c7\u00D5ES");
         List<String> tabsId = Arrays.asList("startMenu", "constructMenu", "consoleMenu", "configMenu");
 
 
@@ -42,8 +42,8 @@ public class MainWindow {
         // HBox Menu Styles
         tabBnts.setAlignment(Pos.CENTER);
         tabBnts.setStyle(tabBnts.getStyle() + " -fx-background-color: white");
-        all.setLeftAnchor(tabBnts, 0.0);
-        all.setBottomAnchor(tabBnts, 0.0);
+        AnchorPane.setLeftAnchor(tabBnts, 0.0);
+        AnchorPane.setBottomAnchor(tabBnts, 0.0);
 
         // Create a Tab with AnchorPane and Panes
         UImenu.setSize(this.windowX, windowY * 0.9f);
@@ -53,8 +53,8 @@ public class MainWindow {
 
 
         // AnchorPane Styles
-        all.setLeftAnchor(tabPanes, 0.0);
-        all.setTopAnchor(tabPanes, 0.0);
+        AnchorPane.setLeftAnchor(tabPanes, 0.0);
+        AnchorPane.setTopAnchor(tabPanes, 0.0);
 
         UImenu.Link(); // Link the Buttons and the AnchorPanes, toggling between disable and enable
 

@@ -51,23 +51,23 @@ public class Main extends Application {
 
 
 
-        Thread.sleep(250);
+        Thread.sleep(10);
         notifyPreloader(new Preloader.ProgressNotification(30.0));
-        Thread.sleep(250);
+        Thread.sleep(10);
         notifyPreloader(new Preloader.ProgressNotification(40.0));
-        Thread.sleep(250);
+        Thread.sleep(10);
         notifyPreloader(new Preloader.ProgressNotification(50.0));
-        Thread.sleep(250);
+        Thread.sleep(10);
         notifyPreloader(new Preloader.ProgressNotification(60.0));
-        Thread.sleep(250);
+        Thread.sleep(10);
         notifyPreloader(new Preloader.ProgressNotification(70.0));
-        Thread.sleep(250);
+        Thread.sleep(10);
         notifyPreloader(new Preloader.ProgressNotification(80.0));
-        Thread.sleep(250);
+        Thread.sleep(10);
         notifyPreloader(new Preloader.ProgressNotification(90.0));
-        Thread.sleep(250);
+        Thread.sleep(10);
         notifyPreloader(new Preloader.ProgressNotification(100.0));
-        Thread.sleep(250);
+        Thread.sleep(10);
     }
 
 

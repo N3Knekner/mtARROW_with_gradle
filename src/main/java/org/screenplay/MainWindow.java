@@ -7,9 +7,14 @@ import java.util.List;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -20,7 +25,7 @@ public class MainWindow {
     private float windowX, windowY;
 
     public void load() {
-        List<String> tabs = Arrays.asList("INICIAR", "CONSTRUIR", "CONSOLE", "CONFIGURA\u00c7\u00D5ES");
+        List<String> tabs = Arrays.asList("INICIAR", "PREDEFINIÇÕES", "CONSOLE", "CONFIGURAÇÕES");
         List<String> tabsId = Arrays.asList("startMenu", "constructMenu", "consoleMenu", "configMenu");
 
 
@@ -61,7 +66,7 @@ public class MainWindow {
 
         //-------------------------------------------------------------------------------
         createStartMenu((AnchorPane) tabPanes.getChildren().get(0));
-        createConstructMenu((AnchorPane) tabPanes.getChildren().get(1));
+        createPredefsMenu((AnchorPane) tabPanes.getChildren().get(1));
         createConsoleMenu((AnchorPane) tabPanes.getChildren().get(2));
         createConfigMenu((AnchorPane) tabPanes.getChildren().get(3));
         //-------------------------------------------------------------------------------
@@ -96,9 +101,27 @@ public class MainWindow {
 
     private void createStartMenu(AnchorPane tab){
         System.out.println(tab);
+        usbServer u = new usbServer();
+        Button scanBtn = new Button("scan");
+        scanBtn.setOnAction(event -> u.scan());
+        Button resetBtn = new Button("reset");
+        resetBtn.setOnAction(event -> u.reset());
+        resetBtn.setTranslateX(100.0);
+        tab.getChildren().add(scanBtn);
+        tab.getChildren().add(resetBtn);
+
+
     }
-    private void createConstructMenu(AnchorPane tab){
+    private void createPredefsMenu(AnchorPane tab){
         System.out.println(tab);
+        ArrowSimulator arrowSimulator = new ArrowSimulator(250,250);
+        tab.getChildren().add(arrowSimulator.getCanvas());
+        arrowSimulator.setRadius(100);
+        arrowSimulator.setGiroCoordinates(200,150);
+        Button playBtn = new Button("play");
+        playBtn.setOnAction(event -> arrowSimulator.playAnimation());
+        tab.getChildren().add(playBtn);
+        playBtn.setTranslateX(300.0);
     }
     private void createConsoleMenu(AnchorPane tab){
         System.out.println(tab);

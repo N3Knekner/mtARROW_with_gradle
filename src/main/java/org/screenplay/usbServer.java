@@ -1,25 +1,30 @@
 package org.screenplay;
 
 import com.fazecast.jSerialComm.SerialPort;
-import com.fazecast.jSerialComm.SerialPortDataListener;
 import com.fazecast.jSerialComm.SerialPortEvent;
 import com.fazecast.jSerialComm.SerialPortPacketListener;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
 
 public class usbServer {
-    private int portId = 1;
+    private int portId = 0;
     private SerialPort[] comPort;
 
-    public void scan(){
+    public ObservableList<String> scan(){
         this.comPort = SerialPort.getCommPorts();
+        ObservableList<String> list = FXCollections.observableArrayList();
+
         for (SerialPort serialPort : comPort) {
-            System.out.println(serialPort.getSystemPortName());
+            System.out.println(serialPort.getDescriptivePortName());
+            String IamArduino = "";
+            if(serialPort.getDescriptivePortName().contains("Arduino")) IamArduino = " - Arduino";
+            list.add(serialPort.getSystemPortName()+IamArduino);
         }
-        teste();
+        //teste();
+        list.sort((e,i)->e.compareTo("Arduino"));
+        return (list);
     }
     public void reset(){
         this.comPort[portId].writeBytes(("init").getBytes(),("init").length());
@@ -28,12 +33,13 @@ public class usbServer {
         this.comPort = null;
     }
 
-    public SerialPort selectPort(){
-        return comPort[portId];
+    public void setPortIndex(int index){
+        System.out.println("Selected now: "+ index);
+        portId = index;
     }
 
     public void teste(){
-        SerialPort ardulino = this.selectPort();
+        SerialPort ardulino = comPort[portId];
         ardulino.setComPortTimeouts(SerialPort.TIMEOUT_READ_BLOCKING, 0, 0);
         PacketListener listener = new PacketListener();
         ardulino.addDataListener(listener);

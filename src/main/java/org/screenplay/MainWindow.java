@@ -2,17 +2,25 @@ package org.screenplay;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.io.InputStream;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
+import afester.javafx.svg.SvgLoader;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
@@ -26,7 +34,7 @@ public class MainWindow {
 
     public void load() {
         List<String> tabs = Arrays.asList("INICIAR", "PREDEFINIÇÕES", "CONSOLE", "CONFIGURAÇÕES");
-        List<String> tabsId = Arrays.asList("startMenu", "constructMenu", "consoleMenu", "configMenu");
+        List<String> tabsId = Arrays.asList("startMenu", "predefMenu", "consoleMenu", "configMenu");
 
 
         // Create all classes or get for info
@@ -75,7 +83,7 @@ public class MainWindow {
         all.getChildren().add(tabPanes);
         all.getChildren().add(tabBnts);
 
-        all.setStyle("-fx-background-color: #0B0B0B;");
+        all.setStyle("-fx-background-color: #111;");
 
         this.application = all;
     }
@@ -101,16 +109,46 @@ public class MainWindow {
 
     private void createStartMenu(AnchorPane tab){
         System.out.println(tab);
+
+        SvgLoader SVGloader = new SvgLoader();
+
+        HBox header = new HBox(20);
+        header.setMinWidth(windowX);
+        AnchorPane.setTopAnchor(header,20.0);
+        AnchorPane.setLeftAnchor(header,20.0);
+
         usbServer u = new usbServer();
-        Button scanBtn = new Button("scan");
-        scanBtn.setOnAction(event -> u.scan());
-        Button resetBtn = new Button("reset");
+        //Select
+        ChoiceBox<String> scanList = new ChoiceBox<>();
+
+        scanList.setMinWidth(100);
+        scanList.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> u.setPortIndex((int)newValue));
+
+        //Scan
+        Button scanBtn = new Button("SCAN");
+        InputStream scanIcon = getClass().getResourceAsStream("../../resources/main/lupa.svg");
+        Group scanImage = SVGloader.loadSvg(scanIcon);
+        scanBtn.setGraphic(scanImage);
+        scanBtn.setOnAction(event -> {
+            scanList.getItems().removeAll(scanList.getItems());
+            scanList.getItems().addAll(u.scan());
+            scanList.getSelectionModel().select(0);
+        });
+        //Reset
+        Button resetBtn = new Button("RESET");
+
         resetBtn.setOnAction(event -> u.reset());
-        resetBtn.setTranslateX(100.0);
-        tab.getChildren().add(scanBtn);
-        tab.getChildren().add(resetBtn);
 
 
+
+
+        //Set children all things
+        header.getChildren().addAll(
+                scanList,
+                scanBtn,
+                resetBtn
+        );
+        tab.getChildren().add(header);
     }
     private void createPredefsMenu(AnchorPane tab){
         System.out.println(tab);

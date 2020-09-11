@@ -1,28 +1,60 @@
+.button{
+    -fx-background-color: rgb(50, 50, 50);
+    -fx-text-fill: white;
+    -fx-border-color : transparent !important;
+    -fx-font-family : "System" !important;
+}
+.button:hover{
+    -fx-background-color: white;
+    -fx-text-fill: black;
+}
+
 .menuBnt{
-    -fx-background-radius : 0;
-    -fx-background-color : white;
-    -fx-border-color : transparent;
-    -fx-font-size : 1.2em;
-    -fx-font-family : "System";
-    -fx-font-weight : bold;
-    -fx-font-style : italic;
+    -fx-background-radius : 0 !important;
+    -fx-background-color : white !important;
+    -fx-font-size : 1.2em !important;
+    -fx-font-weight : bold !important;
+    -fx-text-fill: black !important;
 }
 .menuBnt .text{
     /* acessa diretamente o texto*/
 }
 .menuBnt:hover{
-    -fx-background-color : #CCC;
+    -fx-background-color : #CCC !important;
 }
 
 #startMenu{
-    -fx-background-color : rgba(255, 0, 0, 0.2);
+    -fx-background-color : rgba(255, 255, 255, 0);
 }
-#constructMenu{
-    -fx-background-color : rgba(255, 255, 0, 0.2);
+#predefMenu{
+    -fx-background-color : rgba(10, 10, 10, 0);
 }
 #consoleMenu{
-    -fx-background-color : rgba(0, 255, 0, 0.2);
+    -fx-background-color : rgba(0, 255, 0, 0);
 }
 #configMenu{
-    -fx-background-color : rgba(0, 0, 255, 0.2);
+    -fx-background-color : rgba(0, 0, 255, 0);
 }
+.choice-box{
+     -fx-background-color: rgb(50, 50, 50);
+     -fx-mark-color: white;
+     -fx-border-color : transparent;
+     -fx-border-radius : 0px;
+     -fx-background-radius: 0px;
+}
+.choice-box:hover{
+    -fx-border-width:1px;
+    -fx-border-color: white;
+}
+.choice-box > .label {
+    -fx-text-fill: white;
+ }
+
+// Background color of the whole context menu
+.choice-box .context-menu { -fx-background-color: rgb(30, 30, 30); }
+// Focused item background color in the list
+.choice-box .menu-item:focused { -fx-background-color: white; }
+// Text color of non-focused items in the list
+.choice-box .menu-item > .label { -fx-text-fill: white; }
+// Text color of focused item in the list
+.choice-box .menu-item:focused > .label { -fx-text-fill: black; }

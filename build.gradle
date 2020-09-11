@@ -11,6 +11,8 @@ javafx {
 
 group 'org.screenplay'
 version '1.0-SNAPSHOT'
+mainClassName = 'org.screenplay.Main'
+
 
 repositories {
     mavenCentral()
@@ -19,6 +21,8 @@ repositories {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     compile group: 'com.fazecast', name: 'jSerialComm', version: '2.6.2'
+    compile group: 'com.github.afester.javafx', name: 'FranzXaver', version: '0.1'
+
 }
 compileJava.options.encoding = 'UTF-8'
 

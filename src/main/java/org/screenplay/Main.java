@@ -15,7 +15,7 @@ public class Main extends Application {
         mainWindow.start(primaryStage);
     }
     @Override
-    public void init() throws Exception {
+    public void init() {
         notifyPreloader(new Preloader.ProgressNotification(1.0));
 
         mainWindow = new MainWindow();
@@ -35,7 +35,7 @@ public class Main extends Application {
 
         //System.out.println(System.getProperties());
 
-        boolean mainDataFolder = new File(dataFolder).mkdir();
+        /*boolean mainDataFolder = new File(dataFolder).mkdir();
 
         boolean projects = new File(dataFolder+"\\projects").mkdir();
 
@@ -43,15 +43,15 @@ public class Main extends Application {
 
         boolean languages = new File(dataFolder+"\\languages").mkdir();
 
-        boolean plugins = new File(dataFolder+"\\plugins").mkdir();
+        boolean plugins = new File(dataFolder+"\\plugins").mkdir();*/
 
-        notifyPreloader(new Preloader.ProgressNotification(22.0));
+        notifyPreloader(new Preloader.ProgressNotification(70.0));
 
-        new xmlLoad(dataFolder);
+        //new xmlLoad(dataFolder);
 
 
 
-        Thread.sleep(10);
+        /*Thread.sleep(10);
         notifyPreloader(new Preloader.ProgressNotification(30.0));
         Thread.sleep(10);
         notifyPreloader(new Preloader.ProgressNotification(40.0));
@@ -67,7 +67,7 @@ public class Main extends Application {
         notifyPreloader(new Preloader.ProgressNotification(90.0));
         Thread.sleep(10);
         notifyPreloader(new Preloader.ProgressNotification(100.0));
-        Thread.sleep(10);
+        Thread.sleep(10);*/
     }
 
 

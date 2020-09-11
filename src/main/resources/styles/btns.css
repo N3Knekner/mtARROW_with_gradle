@@ -1,12 +1,18 @@
+#all{
+    -fx-background-repeat: repeat;
+    -fx-background-position: center center;
+}
 .button{
     -fx-background-color: rgb(50, 50, 50);
     -fx-text-fill: white;
-    -fx-border-color : transparent !important;
+    -fx-border-color : transparent;
+    -fx-border-width: 1px;
+    -fx-border-radius:3px;
     -fx-font-family : "System" !important;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 10, 0, 0, 0);
 }
 .button:hover{
-    -fx-background-color: white;
-    -fx-text-fill: black;
+    -fx-border-color: white;
 }
 
 .menuBnt{
@@ -15,6 +21,11 @@
     -fx-font-size : 1.2em !important;
     -fx-font-weight : bold !important;
     -fx-text-fill: black !important;
+    -fx-font-style: italic;
+    -fx-border-size: 0px !important;
+    -fx-border-radius : 0px !important;
+    -fx-border-color: none !important;
+    -fx-effect: none !important;
 }
 .menuBnt .text{
     /* acessa diretamente o texto*/
@@ -22,18 +33,43 @@
 .menuBnt:hover{
     -fx-background-color : #CCC !important;
 }
+.menuBnt.selected{
+    -fx-background-color : #CCC !important;
+}
+
+.typeConnectionBnt{
+    -fx-background-radius : 0 !important;
+    -fx-border-radius : 0 !important;
+    -fx-font-size : 1.2em !important;
+    -fx-font-weight : bold !important;
+    -fx-background-color: rgb(31, 32, 33);
+    -fx-border-width: 0 1 0 1;
+    -fx-border-color: black;
+}
+.typeConnectionBnt.selected{
+    -fx-border-width: 0 1 0 1;
+    -fx-border-color: white;
+    -fx-background-color: rgba(30, 30, 30,0.9);
+}
 
 #startMenu{
-    -fx-background-color : rgba(255, 255, 255, 0);
+    -fx-background-color : rgba(40, 40, 40, 0.5);
 }
 #predefMenu{
-    -fx-background-color : rgba(10, 10, 10, 0);
+    -fx-background-color : rgba(40, 40, 40, 0.5);
 }
 #consoleMenu{
-    -fx-background-color : rgba(0, 255, 0, 0);
+    -fx-background-color : rgba(20, 20, 20, 0.9);
 }
 #configMenu{
-    -fx-background-color : rgba(0, 0, 255, 0);
+    -fx-background-color : rgba(100, 100, 100, 0.5);
+}
+
+#usbNavigator{
+    -fx-background-color: rgba(30, 30, 30,0.9);
+}
+#wifiNavigator{
+    -fx-background-color: rgba(30, 30, 30,0.9);
 }
 .choice-box{
      -fx-background-color: rgb(50, 50, 50);
@@ -41,6 +77,7 @@
      -fx-border-color : transparent;
      -fx-border-radius : 0px;
      -fx-background-radius: 0px;
+     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 3, 0, 0, 0);
 }
 .choice-box:hover{
     -fx-border-width:1px;

@@ -29,3 +29,13 @@ compileJava.options.encoding = 'UTF-8'
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
+
+sourceSets {
+    main {
+        resources {
+            include '**/*.css'
+            include '**/*.svg'
+            include '**/*.png'
+        }
+    }
+}

@@ -22,7 +22,7 @@ public class UIutil {
     private float x, y;
     private String styleClass;
     private boolean generateId;
-    private List IDs;
+    private List<String> IDs;
     private ArrayList<Node> items = new ArrayList<>();
 
     public String normalizeString(String str){
@@ -70,7 +70,9 @@ public class UIutil {
                 if (normalizeString(d.getStyleClass().get(d.getStyleClass().size()-1)).compareTo(e.getId()) == 0){
                     d.setOnAction(event -> {
                         for (AnchorPane f : panes){ f.setVisible(false);}
+                        for (Button g : bnts){ g.getStyleClass().remove("selected");}
                         e.setVisible(true);
+                        d.getStyleClass().add("selected");
                     });
                 }
             }
@@ -89,10 +91,10 @@ public class UIutil {
 
             if (!this.styleClass.isEmpty()) bnt.getStyleClass().add(this.styleClass);
             if (generateId){
-                bnt.setId((String) IDs.get(names.indexOf(name)));
+                bnt.setId(IDs.get(names.indexOf(name)));
             }
             if (!this.IDs.isEmpty()){
-                bnt.getStyleClass().add((String) IDs.get(names.indexOf(name)));
+                bnt.getStyleClass().add(IDs.get(names.indexOf(name)));
             }
 
 
@@ -114,14 +116,13 @@ public class UIutil {
 
         for (String name : names) {
             AnchorPane p = new AnchorPane();
-            p.setId((String) IDs.get(names.indexOf(name)));
+            p.setId(IDs.get(names.indexOf(name)));
             p.setPrefSize(this.x, this.y);
-            //p.setStyle("-fx-background-color : #F00");
             p.setVisible(false);
 
             a.getChildren().add(p);
-            a.setLeftAnchor(p, 0.0);
-            a.setTopAnchor(p, 0.0);
+            AnchorPane.setLeftAnchor(p, 0.0);
+            AnchorPane.setTopAnchor(p, 0.0);
         }
         this.items.add(a);
         return (AnchorPane) this.items.get(items.size()-1);

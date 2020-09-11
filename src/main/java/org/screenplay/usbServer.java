@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.Arrays;
+import java.util.Date;
 
 public class usbServer {
     private int portId = 0;
@@ -22,15 +23,15 @@ public class usbServer {
             if(serialPort.getDescriptivePortName().contains("Arduino")) IamArduino = " - Arduino";
             list.add(serialPort.getSystemPortName()+IamArduino);
         }
-        //teste();
         list.sort((e,i)->e.compareTo("Arduino"));
+        Arrays.sort(this.comPort, (e,i)-> (e.getDescriptivePortName().contains("Arduino")?-1:0));
         return (list);
     }
     public void reset(){
         this.comPort[portId].writeBytes(("init").getBytes(),("init").length());
         this.comPort[portId].closePort();
         this.comPort[portId].removeDataListener();
-        this.comPort = null;
+        //this.comPort = null;
     }
 
     public void setPortIndex(int index){
@@ -40,16 +41,31 @@ public class usbServer {
 
     public void teste(){
         SerialPort ardulino = comPort[portId];
+        System.out.println(ardulino.getDescriptivePortName());
         ardulino.setComPortTimeouts(SerialPort.TIMEOUT_READ_BLOCKING, 0, 0);
         PacketListener listener = new PacketListener();
-        ardulino.addDataListener(listener);
-        ardulino.openPort();
+        boolean getOldData = true;
+        ardulino.openPort(0);
+
+        //GAMBIARRA PRA RESETAR O BUFFER (apesar de ser uma gambiarra, não existe outro meio de resetar o buffer)
+        Date calendar = new Date();
+        long startTime = calendar.getTime();
+        while (getOldData) {
+            while (ardulino.bytesAvailable()>0){
+                byte[] readBuffer = new byte[ardulino.bytesAvailable()];
+                int numRead = ardulino.readBytes(readBuffer, readBuffer.length); //O jeito é ler os dados infinitamente até zerar
+                System.out.println(numRead);
+            }
+            if (startTime+1000 <= new Date().getTime())getOldData = false; //Pelos meus testes leva +-600ms pra terminar de ler, então botei 1000 pra não ter problema
+        }
+        // END GAMBIARRA PRA RESETAR O BUFFER
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1000); // O correto aqui seria 2000, mas como no loop aqui em cima ja leva 1000, funciona.
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        ardulino.writeBytes(("init").getBytes(),("init").length());
+        ardulino.addDataListener(listener); //Adiciona o callback
+        ardulino.writeBytes(("init").getBytes(),("init").length());//Manda pro arduino uma string aleatória para iniciar a transmissão
     }
     private static final class PacketListener implements SerialPortPacketListener
     {

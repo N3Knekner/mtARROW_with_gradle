@@ -108,6 +108,55 @@ public class MainWindow {
 
         SvgLoader SVGloader = new SvgLoader();
 
+        // PAGINATION ZONE ---------------------------------------------------------------------------------------------
+        //Set children all things
+
+        List<String> tabsId = Arrays.asList("usbNavigator", "wifiNavigator");
+        List<String> tabs = Arrays.asList(" USB", " WIFI");
+        UIutil usbWifiNavigator = new UIutil(windowX/2,60);
+
+        usbWifiNavigator.setStyleClass("typeConnectionBnt");
+        usbWifiNavigator.createLinkId(tabsId);
+        HBox usbWifiNavigatorBnts = usbWifiNavigator.createHorizontalButtons(tabs);
+
+        Group usbImage = SVGloader.loadSvg(getClass().getResourceAsStream("../../../../resources/main/usb_icon.svg"));
+        usbImage.setScaleX(0.03);
+        usbImage.setScaleY(0.027);
+        Group usbIcon = new Group(usbImage);
+        Button NEED_TO_STAY_IN_A_VARIABLE = (Button) usbWifiNavigatorBnts.getChildren().get(0);
+        NEED_TO_STAY_IN_A_VARIABLE.setGraphic(usbIcon);
+        Group wifiImage = SVGloader.loadSvg(getClass().getResourceAsStream("../../../../resources/main/wifi_icon.svg"));
+        wifiImage.setScaleX(0.03);
+        wifiImage.setScaleY(0.027);
+        Group wifiIcon = new Group(wifiImage);
+        Button NEED_TO_STAY_IN_A_VARIABLE2 = (Button) usbWifiNavigatorBnts.getChildren().get(1);
+        NEED_TO_STAY_IN_A_VARIABLE2.setGraphic(wifiIcon);
+
+        usbWifiNavigatorBnts.setAlignment(Pos.CENTER);
+
+        usbWifiNavigator.setSize(this.windowX, windowY-(windowY * 0.1f + 60));
+        usbWifiNavigator.setStyleClass("");
+        usbWifiNavigator.createLinkId(tabsId);
+        AnchorPane usbWifiNavigatorTabPanes = usbWifiNavigator.createTabPanes(tabs);
+
+        AnchorPane.setLeftAnchor(usbWifiNavigatorTabPanes, 0.0);
+        AnchorPane.setTopAnchor(usbWifiNavigatorTabPanes, 60.0);
+
+        usbWifiNavigator.Link();
+
+        //Center the buttons
+        HBox centerButtons = new HBox(usbWifiNavigatorBnts);AnchorPane.setLeftAnchor(centerButtons, 0.0);AnchorPane.setTopAnchor(centerButtons, 0.0);
+        centerButtons.setMinWidth(windowX);
+        centerButtons.setAlignment(Pos.CENTER);
+        //centerButtons.setStyle("-fx-border-width: 0 0 1 0; -fx-border-color: white;");
+        //end
+        //set USB open per default
+        usbWifiNavigatorBnts.getChildren().get(0).getStyleClass().add("selected");
+        usbWifiNavigatorTabPanes.getChildren().get(0).setVisible(true);
+        //end
+
+        // END PAGINATION ZONE -----------------------------------------------------------------------------------------
+
         // USB ZONE ----------------------------------------------------------------------------------------------------
 
         HBox headerUsb = new HBox(20);
@@ -158,51 +207,13 @@ public class MainWindow {
         Group playIcon = new Group(playImage);
         playBtn_usb.setGraphic(playIcon);
 
-        //END USB ZONE -------------------------------------------------------------------------------------------------
-
-        // PAGINATION ZONE ---------------------------------------------------------------------------------------------
-        //Set children all things
         headerUsb.getChildren().addAll(
                 scanList_usb,
                 scanBtn_usb,
                 resetBtn_usb,
                 playBtn_usb
         );
-        tab.getChildren().add(headerUsb);
-
-        List<String> tabsId = Arrays.asList("usbNavigator", "wifiNavigator");
-        List<String> tabs = Arrays.asList("USB", "WIFI");
-        UIutil usbWifiNavigator = new UIutil(windowX/2,60);
-
-        usbWifiNavigator.setStyleClass("typeConnectionBnt");
-        usbWifiNavigator.createLinkId(tabsId);
-        HBox usbWifiNavigatorBnts = usbWifiNavigator.createHorizontalButtons(tabs);
-
-        usbWifiNavigatorBnts.setAlignment(Pos.CENTER);
-        //usbWifiNavigatorBnts.setStyle("-fx-background-color : rgb(255, 40, 40);");
-
-        usbWifiNavigator.setSize(this.windowX, windowY-(windowY * 0.1f + 60));
-        usbWifiNavigator.setStyleClass("");
-        usbWifiNavigator.createLinkId(tabsId);
-        AnchorPane usbWifiNavigatorTabPanes = usbWifiNavigator.createTabPanes(tabs);
-
-        AnchorPane.setLeftAnchor(usbWifiNavigatorTabPanes, 0.0);
-        AnchorPane.setTopAnchor(usbWifiNavigatorTabPanes, 60.0);
-
-        usbWifiNavigator.Link();
-
-        //Center the buttons
-        HBox centerButtons = new HBox(usbWifiNavigatorBnts);AnchorPane.setLeftAnchor(centerButtons, 0.0);AnchorPane.setTopAnchor(centerButtons, 0.0);
-        centerButtons.setMinWidth(windowX);
-        centerButtons.setAlignment(Pos.CENTER);
-        //centerButtons.setStyle("-fx-border-width: 0 0 1 0; -fx-border-color: white;");
-        //end
-        //set USB open per default
-        usbWifiNavigatorBnts.getChildren().get(0).getStyleClass().add("selected");
-        usbWifiNavigatorTabPanes.getChildren().get(0).setVisible(true);
-        //end
-
-        // END PAGINATION ZONE -----------------------------------------------------------------------------------------
+        //END USB ZONE -------------------------------------------------------------------------------------------------
 
         //WIFI ZONE ----------------------------------------------------------------------------------------------------
         HBox headerWifi = new HBox();

@@ -207,11 +207,20 @@ public class MainWindow {
         Group playIcon = new Group(playImage);
         playBtn_usb.setGraphic(playIcon);
 
+        ArrowRobot arrowRobot = new ArrowRobot();
+
+        Button testeThradStart = new Button("TESTE iniciar");
+        testeThradStart.setOnAction(event->arrowRobot.execLoadAnimation());
+        Button testeThradStop = new Button("TESTE parar");
+        testeThradStop.setOnAction(event->arrowRobot.stopStaticUpdate());
+
         headerUsb.getChildren().addAll(
                 scanList_usb,
                 scanBtn_usb,
                 resetBtn_usb,
-                playBtn_usb
+                playBtn_usb,
+                testeThradStart,
+                testeThradStop
         );
         //END USB ZONE -------------------------------------------------------------------------------------------------
 

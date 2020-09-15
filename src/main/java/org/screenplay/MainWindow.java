@@ -2,13 +2,10 @@ package org.screenplay;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 
 import afester.javafx.svg.SvgLoader;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -16,7 +13,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -231,7 +227,7 @@ public class MainWindow {
         AnchorPane.setLeftAnchor(headerWifi,20.0);
 
         // INICIALIZA A CLESSE DO SERVIDOR:
-        localhostServer w = new localhostServer();
+        localhostClient w = new localhostClient();
 
         // AK PODES INCLUIR OS BOTÕES,
         //exemplo:

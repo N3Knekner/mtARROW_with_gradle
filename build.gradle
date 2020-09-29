@@ -22,6 +22,8 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     compile group: 'com.fazecast', name: 'jSerialComm', version: '2.6.2'
     compile group: 'com.github.afester.javafx', name: 'FranzXaver', version: '0.1'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.13.3'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.13.3'
 
 }
 compileJava.options.encoding = 'UTF-8'

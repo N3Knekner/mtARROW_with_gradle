@@ -182,7 +182,6 @@ public class MainWindow {
             scanList_usb.getItems().addAll(u.scan());
             scanList_usb.getSelectionModel().select(0);
         });
-        //Reset
         Button resetBtn_usb = new Button("RESET");
 
         resetBtn_usb.setOnAction(event -> u.reset());
@@ -233,7 +232,7 @@ public class MainWindow {
         //exemplo:
         Button playBtn_wifi = new Button("PLAY"); //Cria o botão
 
-        playBtn_wifi.setOnAction(event -> w.start()); // Seta o evento
+        playBtn_wifi.setOnAction(event -> w.wifi()); // Seta o evento
 
 
         headerWifi.getChildren().addAll(playBtn_wifi);

@@ -2,6 +2,7 @@ package org.screenplay;
 
 import javafx.application.Application;
 import javafx.application.Preloader;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -15,12 +16,13 @@ public class Main extends Application {
         mainWindow.start(primaryStage);
     }
     @Override
-    public void init() {
-        notifyPreloader(new Preloader.ProgressNotification(1.0));
+    public void init() throws InterruptedException {
+        notifyPreloader(new Preloader.ProgressNotification(10.0));
 
         mainWindow = new MainWindow();
         mainWindow.setSize(0.7F, 1);
-        mainWindow.load();
+
+        Console.setConsole(new VBox());
 
         notifyPreloader(new Preloader.ProgressNotification(20.0));
 
@@ -28,11 +30,15 @@ public class Main extends Application {
         if (System.getProperty("os.name").contains("Windows")){
             dataFolder = System.getenv("APPDATA");
             System.out.println("Running in Windows");
+            Console.log("Sistema: Windows");
         }
+        else Console.log("Sistema: Linux");
         dataFolder += "\\.controllerSX";
         System.out.println(System.getProperty("user.dir"));
         System.out.println(dataFolder);
+        Console.log("Pasta padrão: "+dataFolder);
 
+        mainWindow.load();
         //System.out.println(System.getProperties());
 
         /*boolean mainDataFolder = new File(dataFolder).mkdir();
@@ -45,29 +51,14 @@ public class Main extends Application {
 
         boolean plugins = new File(dataFolder+"\\plugins").mkdir();*/
 
-        notifyPreloader(new Preloader.ProgressNotification(70.0));
+        //notifyPreloader(new Preloader.ProgressNotification(70.0));
 
         //new xmlLoad(dataFolder);
 
-
-
-        /*Thread.sleep(10);
-        notifyPreloader(new Preloader.ProgressNotification(30.0));
-        Thread.sleep(10);
-        notifyPreloader(new Preloader.ProgressNotification(40.0));
-        Thread.sleep(10);
-        notifyPreloader(new Preloader.ProgressNotification(50.0));
-        Thread.sleep(10);
-        notifyPreloader(new Preloader.ProgressNotification(60.0));
-        Thread.sleep(10);
-        notifyPreloader(new Preloader.ProgressNotification(70.0));
-        Thread.sleep(10);
-        notifyPreloader(new Preloader.ProgressNotification(80.0));
-        Thread.sleep(10);
-        notifyPreloader(new Preloader.ProgressNotification(90.0));
-        Thread.sleep(10);
-        notifyPreloader(new Preloader.ProgressNotification(100.0));
-        Thread.sleep(10);*/
+        for (int i = 21; i < 100; i++){
+            Thread.sleep(10);
+            notifyPreloader(new Preloader.ProgressNotification(i));
+        }
     }
 
 

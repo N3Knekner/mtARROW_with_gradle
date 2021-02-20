@@ -1,10 +1,14 @@
 package org.screenplay;
 
 import javafx.application.Preloader;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -23,7 +27,8 @@ public class UIloadSystem extends Preloader {
         stage.setScene(scene);
         stage.setAlwaysOnTop(true);
         stage.setResizable(false);
-        stage.initStyle(StageStyle.UNDECORATED);
+        stage.initStyle(StageStyle.TRANSPARENT);
+        stage.getIcons().add(new Image("../../resources/main/icon.png"));
 
         stage.show();
 
@@ -34,35 +39,38 @@ public class UIloadSystem extends Preloader {
     public void init() throws Exception {
         System.out.println("Initiate UI LOAD SCREEN");
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        float windowX = (float) screenSize.getWidth()  *  0.3f;
-        float windowY = (float) screenSize.getHeight() * 0.3f;
+        float windowX = (float) screenSize.getWidth()  *  0.2f;
+        float windowY = (float) screenSize.getHeight() * 0.2f;
 
         AnchorPane all = new AnchorPane();
         all.setPrefSize(windowX, windowY);
         all.setMaxSize(windowX, windowY);
-        all.setStyle("-fx-background-color: linear-gradient(from 0% 0% to 80% 80%, #f00, #000);");
+        all.setStyle("-fx-background-color: rgba(11,11,11,1); -fx-border-radius: 30px; -fx-background-radius: 10px; ");
 
         this.loadBar = new Pane();
-        loadBar.setStyle("-fx-background-color: white;");
-        loadBar.setPrefSize(100, windowY * 0.02);
+        loadBar.setStyle("-fx-background-color: white; -fx-background-radius: 10px; ");
+        loadBar.setPrefSize(100, windowY);
 
-        Label title = new Label("controllerSX");
+        Label title = new Label("MTS ARROW");
+        title.setStyle("-fx-color: rgba(11,11,11,1);-fx-font-size: 36px; -fx-font-weight: bold;");
+        title.setPrefSize(windowX,windowY);
 
         all.getChildren().add(loadBar);
         all.getChildren().add(title);
 
-        all.setLeftAnchor(loadBar, 0.0);
-        all.setBottomAnchor(loadBar, windowY * 0.15);
+        AnchorPane.setLeftAnchor(loadBar, 0.0);
+        AnchorPane.setBottomAnchor(loadBar, 0.0);
+
+        StackPane.setAlignment(title, Pos.CENTER);
 
         this.scene = new Scene(all, windowX, windowY);
+        scene.setFill(Paint.valueOf("rgba(0,0,0,0)"));
     }
 
     @Override
     public void handleApplicationNotification(Preloader.PreloaderNotification info) {
         if (info instanceof ProgressNotification) {
-            System.out.println("Value :" + ((ProgressNotification) info).getProgress());
             loadBar.setPrefWidth(scene.getWidth() * (((ProgressNotification) info).getProgress() / 100));
-
         }
     }
 
@@ -72,7 +80,7 @@ public class UIloadSystem extends Preloader {
         StateChangeNotification.Type type = info.getType();
         switch (type) {
             case BEFORE_START:
-                System.out.println("BEFORE_START");
+                System.out.println("Load Successful");
                 this.stage.close();
                 break;
         }

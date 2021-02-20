@@ -8,8 +8,9 @@ import java.util.List;
 public class ArrowRobot {
     private boolean isRealTime = false;
     private boolean threadRunning = false;
-    private List<int[]> buffer = new ArrayList<>();
+    private final List<int[]> buffer = new ArrayList<>();
     private Robot robot;
+    private int lastBtnStatus = 2;
     //Animation parameters
     private int animationProgress = 0;
     private int direction = 5; //direction (1,-1) and steps
@@ -19,12 +20,15 @@ public class ArrowRobot {
         try {
             robot = new Robot();
         } catch (AWTException e) {
-            e.printStackTrace();
+            Console.log("Acesso ao controle profundo do ponteiro negado. Tente reiniciar como administrador.");
         }
     }
 
     public void setRealTime(boolean b){
         isRealTime = b;
+    }
+    public boolean getRealTime(){
+        return isRealTime;
     }
 
     public void addToBuffer(int[] data){
@@ -69,18 +73,23 @@ public class ArrowRobot {
         System.out.println(Arrays.toString(data));
         if(data[0]!=0 && data[2]!=0)     //Isso abre a possibilidade de se ter apenas um controlador de cliques, talvez um por USB e outro por WIFI
         robot.mouseMove(data[0],data[2]);
-        if (data[1] == 1)robot.mousePress(1); else
-        if (data[1] == 2)robot.mouseRelease(1);
+        if (data[1] == 1 && lastBtnStatus == 2)robot.mousePress(1); else
+        if (data[1] == 2 && lastBtnStatus == 1)robot.mouseRelease(1);
     }
 
     /**
      * No exist better loading
      */
     public void execLoadAnimation(){
+
         p = MouseInfo.getPointerInfo().getLocation();
         final int radius = 50;
+        long init = System.currentTimeMillis();
 
         startStaticUpdate(25,()->{
+            //Timeout, para caso bugue em algum lugar o mouse não fique infinitamente rodando
+            if(init - System.currentTimeMillis() >= 5000)stopStaticUpdate();
+
             animationProgress+=direction;
             if(animationProgress >= radius || animationProgress <= (radius*-1)) direction=direction*(-1);
             int x2 = animationProgress;
@@ -92,9 +101,5 @@ public class ArrowRobot {
         int x = animationProgress;
         int y = (int) Math.round(Math.sqrt(radius*radius-animationProgress*animationProgress));
         buffer.add(new int[]{x+p.x, 0, p.y+y*(direction/Math.abs(direction))});
-
-        //Timeout, para caso bugue em algum lugar o mouse não fique infinitamente rodando
-        try { Thread.sleep(5000); } catch (InterruptedException e) { e.printStackTrace(); }
-        stopStaticUpdate();
     }
 }
